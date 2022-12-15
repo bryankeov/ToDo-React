@@ -28,3 +28,7 @@ code {
   display: flex;
   margin-top: 100%;
 }
+
+.completed {
+  opacity: 50%;
+}
