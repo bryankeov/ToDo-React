@@ -47,7 +47,8 @@ code {
 }
 
 .taskInput:focus {
-  border-color: #E69288;
+  border: 3px solid #E69288;
+  outline: none;
 }
 
 button {
