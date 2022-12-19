@@ -1,9 +1,7 @@
 function Footer() {
   return (
     <div className="footer">
-      <p>Item counter</p>
-      <p>active tab</p>
-      <p>completed tab</p>
+      <p>Made by Bryan.K</p>
     </div>
   );
 }

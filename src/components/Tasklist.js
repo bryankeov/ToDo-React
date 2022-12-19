@@ -1,6 +1,8 @@
-import React, {useCallback, useState, useEffect} from "react";
+import React, { useState } from "react";
 
 function Tasklist() {
+const [newTask, setNewTask] = useState('');
+
   const [tasks, setTasks] = useState([
     {
       title: "Wash Car",
@@ -20,11 +22,21 @@ function Tasklist() {
     }
     ]);
 
-  const addTask = useCallback(() => {
-    const taskInput = document.getElementsByClassName("taskInput")[0];
-    setTasks((t) => [...t, {title: taskInput.value, completed: false}]);
-    taskInput.value = "";
-  },[setTasks])
+  // const addTask = useCallback(() => {
+  //   const taskInput = document.getElementsByClassName("taskInput")[0];
+  //   setTasks((t) => [...t, {title: taskInput.value, completed: false}]);
+  // },[setTasks])
+
+  const addTask = () => {
+    if (!newTask) return;
+
+    setTasks([...tasks, { title: newTask, completed: false }])
+    setNewTask('');
+  }
+
+  const handleNewTaskChange = (event) => {
+    setNewTask(event.target.value)
+  }
 
   const completeTask = (index) => {
     const newTasks = [...tasks];
@@ -32,24 +44,27 @@ function Tasklist() {
     setTasks(newTasks);
   }
 
-  const delTask = index => {
+  const delTask = (index) => {
     const newTasks = [...tasks];
     newTasks.splice(index, 1)
     setTasks(newTasks);
   };
 
   return (
-    <div className="taskContainer">
-      <input type="text" className="taskInput" placeholder="Add new task" required></input>
-      <button type="submit" className="addBtn" htmlFor="taskInput" onClick={addTask}>+</button>
-      
-      <div className="taskList">
+    <div>
+      <div className="inputContainer">
+        <input type="text" className="taskInput" placeholder="Add new task" onChange={handleNewTaskChange} value={newTask} required></input>
+        <button type="submit" className="addBtn" htmlFor="taskInput" onClick={addTask}>+</button>
+      </div>
+      <div className="taskContainer">
         {tasks.map((item, index) => {
           return (
             <div key={index} className={tasks[index].completed ? "completed" : "active"}>
-              <label htmlFor={item.title} className="taskLabel">{item.title}</label>
-              <button className="completeBtn" index={index} onClick={() => completeTask(index)}>√</button>
-              <button className="deleteBtn" index={index} onClick={delTask}>x</button>
+              <div className="taskLabel">{item.title}</div>
+              <div className="edit">
+                <button className="completeBtn" index={index} onClick={() => completeTask(index)}>√</button>
+                <button className="deleteBtn" index={index} onClick={() => delTask(index)}>x</button>
+              </div>
             </div>
           )
         })}
