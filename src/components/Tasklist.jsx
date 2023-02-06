@@ -1,10 +1,10 @@
 /* eslint-disable arrow-body-style */
 import React, { useState } from "react";
+// eslint-disable-next-line import/no-extraneous-dependencies
 import { v4 as uuidv4 } from "uuid";
 
 function Tasklist() {
   const [newTask, setNewTask] = useState("");
-  const newId = uuidv4();
 
   const [tasks, setTasks] = useState([
     {
@@ -72,7 +72,7 @@ function Tasklist() {
         {tasks.map((item, index) => {
           return (
             <div
-              key={newId}
+              key={uuidv4()}
               className={tasks[index].completed ? "completed" : "active"}
             >
               <div className="taskLabel">{item.title}</div>
